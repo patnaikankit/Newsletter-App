@@ -1,0 +1,9 @@
+{
+    "ARTICLE_MQ_NAME": "article_mq",
+    "EMAIL_MQ_NAME": "email_mq",
+    "SERVER_OPTIONS": {
+      "connRetries": 5,
+      "connRetriesDelay": 5000
+    }
+  }
+  
