@@ -1,10 +1,10 @@
-import amqplib from "amqplib";
+import amqplib, { ChannelModel } from "amqplib";
 import queueConfig from "../configs/queue.config.json";
 import { log } from "console";
 import { sleep } from "../utils/timeout.util"
 
 class QueueService {
-    static fetchRabbitMQConnection = async(): Promise<amqplib.Connection> {
+    static fetchRabbitMQConnection = async(): Promise<ChannelModel> => {
         let retry: number = 0;
         while(retry < queueConfig.SERVER_OPTIONS.connRetries) {
             try{
@@ -22,7 +22,7 @@ class QueueService {
         throw new Error("Failed to connect to RabbitMQ");
     }
 
-    static createQChannel = async (conn: amqplib.Connection): Promise<amqplib.Channel> => {
+    static createQChannel = async (conn: ChannelModel): Promise<amqplib.Channel> => {
         try{
             const channel = await conn.createChannel();
             return channel;

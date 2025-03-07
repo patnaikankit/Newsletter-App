@@ -21,4 +21,7 @@ export const apiResponse = (res: Response, statusCode: number, message: string, 
     });
 }
 
-
+export const asyncHandler = (fn: Function) => {
+    return (req: Request, res: Response, next: NextFunction) =>
+      fn(req, res, next).catch(next);
+};
