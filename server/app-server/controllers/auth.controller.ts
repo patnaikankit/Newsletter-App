@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import AppError from "../utils/error.util";
+import { AppError } from "../utils/error.util";
 import validator from "validator"
 import QueueService from "../services/queue.service";
 import mailConfig from "../configs/mail.config.json";
 import AuthService from "../services/auth.service";
 import rabbitMQConfig from "../configs/queue.config.json";
 import { apiResponse, asyncHandler, setCookie } from "../utils/request.util";
-import { AuthorRequest } from "../../../models/author";
+import { AuthorRequest } from "../../../models/author.model";
 
 export const registerAuthor = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     if (!req.body.name || !req.body.email || !req.body.password) {

@@ -1,6 +1,6 @@
 import { Newsletter } from "../../../models/newsletter.model";
 import { Subscriber } from "../../../models/subscriber.model";
-import { Article } from "../../../models/author.model";
+import { Article } from "../../../models/article.model";
 import prisma from "../configs/db.config";
 import { AppError } from "../utils/error.util";
 

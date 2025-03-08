@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 import { apiResponse, asyncHandler } from "../utils/request.util";
 import { AppError } from "../utils/error.util";
 import NewsletterService from "../services/newsletter.service";
-import { AuthorRequest } from "../../../models/author";
+import { AuthorRequest } from "../../../models/author.model";
 import validator from "validator";
 import QueueService from "../services/queue.service";
 import rabbitMQConfig from "../configs/queue.config.json";

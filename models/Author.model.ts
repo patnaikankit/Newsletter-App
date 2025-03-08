@@ -1,10 +1,14 @@
-export type Article = {
+import { Request } from "express";
+
+export type Author = {
     id: number;
-    title: string;
-    body: string;
-    authorId: number;
-    newsLetterId: number;
+    name: string;
+    email: string;
+    password: string;
     createdAt: Date;
     updatedAt: Date;
-  };
-  
+};
+
+export interface AuthorRequest extends Request {
+    author: Author;
+}
