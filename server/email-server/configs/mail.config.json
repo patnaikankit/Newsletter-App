@@ -1,0 +1,15 @@
+{
+    "types": {
+      "ARTICLE": {
+        "name": "ARTICLE",
+        "subject": "{{author}} has published a new article",
+        "content": "Hi👋🏻, \n\n{{author}} has published a new article. Check it out at {{url}}."
+      },
+      "WELCOME": {
+        "name": "WELCOME",
+        "subject": "Welcome {{name}} to our platform",
+        "content": "Hello {{name}}, \n\nwelcome to our platform. We are happy to have you here."
+      }
+    }
+  }
+  
