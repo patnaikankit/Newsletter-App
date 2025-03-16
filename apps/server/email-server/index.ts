@@ -23,34 +23,35 @@ app.use(cors({
 }));
 
 (async () => {
-    while(true) {
-        try{
-            const mqConnection = await QueueService.fetchRabbitMQConnection();
-            const articleChannel = await QueueService.createQChannel(mqConnection);
-            const mailChannel = await QueueService.createQChannel(mqConnection);
-    
-            app.set("articleChannel", articleChannel);
-            app.set("emailChannel", mailChannel);
-    
-            articleWorker(
-                app.get("articleChannel"),
-                queueConfig.ARTICLE_MQ_NAME,
-                1
-            );
-    
-            mailWorker(
-                app.get("mailChannel"), 
-                queueConfig.EMAIL_MQ_NAME, 
-                1
-            );
-        }
-        catch(err: any) {
-            console.log(err.message);
+    while (true) {
+        try {
+            if (!app.get("mqConnection")) {
+                const mqConnection = await QueueService.fetchRabbitMQConnection();
+                app.set("mqConnection", mqConnection);
+
+                const articleChannel = await QueueService.createQChannel(mqConnection);
+                const mailChannel = await QueueService.createQChannel(mqConnection);
+
+                if (!articleChannel || !mailChannel) {
+                    throw new Error("Channel creation failed");
+                }
+
+                app.set("articleChannel", articleChannel);
+                app.set("emailChannel", mailChannel);
+
+                articleWorker(articleChannel, queueConfig.ARTICLE_MQ_NAME, 1);
+                mailWorker(mailChannel, queueConfig.EMAIL_MQ_NAME, 1);
+
+                break;  
+            }
+        } catch (err: any) {
+            console.error("RabbitMQ Connection Error:", err.message);
             await sleep(queueConfig.SERVER_OPTIONS.reInitConnDelay);
             console.log("Retrying to connect to RabbitMQ...");
         }
     }
 })();
+
 
 
 app.get("/", (req, res) => {

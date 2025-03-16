@@ -9,6 +9,13 @@ class QueueService {
             try {
                 const conn = await ampqlib.connect(process.env.RABBIT_MQ!)
                 console.log(`Connected to RabbitMQ...`);
+
+                conn.on("close", () => {
+                  console.error("RabbitMQ connection closed. Exiting...");
+                  process.exit(1);
+                });
+
+                return conn;
             }
             catch(err: any){
                 console.log(`Could not connect to RabbitMQ...`);
@@ -23,6 +30,10 @@ class QueueService {
         conn: ampqlib.Connection
     ): Promise<ampqlib.Channel> => {
         try {
+          if (!conn){
+            throw new Error("Connection is undefined, cannot create a channel");
+          } 
+
         const channel = await conn.createChannel();
 
         console.log("Created a new MQ channel");

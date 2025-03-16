@@ -20,15 +20,23 @@ app.use(cors({
 app.use(express.json());
 
 (async () => {
-    const redisClient = await RedisConfig.connect();
-    app.set("redisClient", redisClient);
+    try {
+        if (!app.get("redisClient")) {
+            const redisClient = await RedisConfig.connect();
+            app.set("redisClient", redisClient);
+        }
+    } catch (err: any) {
+        console.error("Failed to connect to Redis:", err.message);
+        process.exit(1);
+    }
 })();
+
 
 (async () => {
     while(true) {
         try {
-            const conn = await QueueService.fetchRabbitMQConnection();
-            const channel = await QueueService.createQChannel(conn);
+            const mqConnection = await QueueService.fetchRabbitMQConnection();
+            const channel = await QueueService.createQChannel(mqConnection);
 
             app.set("articleChannel", channel);
 
