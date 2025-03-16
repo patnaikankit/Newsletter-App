@@ -1,11 +1,27 @@
 {
-  "devDependencies": {
-    "@types/amqplib": "^0.10.7",
-    "@types/express": "^5.0.0"
+  "name": "app-repo",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "prettier": "^3.2.5",
+    "turbo": "^2.4.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@9.2.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
-    "@types/cors": "^2.8.17",
-    "cors": "^2.8.5",
-    "ioredis": "^5.6.0"
+    "express": "^4.21.2"
   }
 }

@@ -1,0 +1,22 @@
+{
+    "name": "@repo/types",
+    "version": "1.0.0",
+    "description": "Types for the entire app",
+    "main": "index.js",
+    "exports": {
+        "./author": "./Author.ts",
+        "./express": "./Express.ts",
+        "./newsletter": "./Newsletter.ts",
+        "./subscriber": "./Subscriber.ts",
+        "./article": "./Article.ts"
+    },
+    "author": "Ankit Patnaik",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.2",
+        "typescript": "^5.4.5"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0"
+    }
+}
