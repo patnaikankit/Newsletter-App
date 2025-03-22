@@ -11,7 +11,7 @@ router.post("/subscribe-newsletter/:newsletterId", isAuthenticated, subscribeNew
 router.post("/unsubscribe-newsletter/:newsletterId", isAuthenticated, unsubscribeNewsletter);
 
 router.post("/:newsletterId/create-article", isAuthenticated, createArticle);
-router.get(":newsletterId/fetch-articles", isAuthenticated, fetchAllArticlesUnderNewsletter);
-router.get(":newsletterId/fetch-article/:articleId", isAuthenticated, fetchUniqueArticleFromNewsletter);
+router.get("/:newsletterId/fetch-articles", isAuthenticated, fetchAllArticlesUnderNewsletter);
+router.get("/:newsletterId/fetch-article/:articleId", isAuthenticated, fetchUniqueArticleFromNewsletter);
 
 export default router;
